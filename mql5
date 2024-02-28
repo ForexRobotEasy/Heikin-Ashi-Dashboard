@@ -1,0 +1,144 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                              Heikin Ashi Dashboard|
+//|                                                  forexroboteasy.com|
+//|                                                   Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+// Define input parameters
+input string Currencies = 'EURUSD, GBPUSD, USDJPY'; // Comma-separated list of currencies
+input ENUM_TIMEFRAMES Periods = PERIOD_M15; // Default period
+
+// Define global variables
+datetime lastUpdateTime = 0; // Last update time
+int totalBars = 0; // Total number of bars
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Define indicator buffers
+   IndicatorBuffers(1);
+   SetIndexBuffer(0, trendBuffer, INDICATOR_DATA);
+
+   // Set indicator parameters
+   SetIndexStyle(0, DRAW_LINE);
+   SetIndexLabel(0, 'Trend');
+
+   // Set up scanner panel
+   CreateScannerPanel();
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+   // Check if the indicator needs to be updated
+   if (Time[0] != lastUpdateTime)
+   {
+      // Update scanner panel
+      UpdateScannerPanel();
+
+      lastUpdateTime = Time[0];
+   }
+
+   return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Create scanner panel                                             |
+//+------------------------------------------------------------------+
+void CreateScannerPanel()
+{
+   // TODO: Implement scanner panel creation logic
+   // This function should create a visual panel that displays the direction,
+   // strength, and number of bars of the ongoing trend in the market.
+   // It should also implement color-coding to identify consolidation/reversal candles (dojis).
+}
+
+//+------------------------------------------------------------------+
+//| Update scanner panel                                             |
+//+------------------------------------------------------------------+
+void UpdateScannerPanel()
+{
+   // TODO: Implement scanner panel update logic
+   // This function should update the scanner panel in real-time,
+   // reflecting any changes in the market.
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator deinitialization function                       |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // TODO: Implement any necessary cleanup logic here
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator properties function                             |
+//+------------------------------------------------------------------+
+string ObjectGetDescription(const long chart_id, const string name, const int index)
+{
+   return 'Heikin Ashi Dashboard';
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator properties function                             |
+//+------------------------------------------------------------------+
+int ObjectGetValueByTime(const long chart_id,
+                         const string name,
+                         const int index,
+                         const datetime time,
+                         const int type)
+{
+   return 0;
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator properties function                             |
+//+------------------------------------------------------------------+
+int ObjectGetDouble(const long chart_id,
+                    const string name,
+                    const int index,
+                    const int prop_id,
+                    double &value)
+{
+   return 0;
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator properties function                             |
+//+------------------------------------------------------------------+
+int ObjectGetInteger(const long chart_id,
+                     const string name,
+                     const int index,
+                     const int prop_id,
+                     int &value)
+{
+   return 0;
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator properties function                             |
+//+------------------------------------------------------------------+
+int ObjectGetString(const long chart_id,
+                    const string name,
+                    const int index,
+                    const int prop_id,
+                    string &value)
+{
+   return 0;
+}
